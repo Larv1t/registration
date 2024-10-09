@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VasicTube</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Верхня панель */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 8px 20px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff0000;
+            margin-right: 20px;
+        }
+
+        .header input {
+            width: 600px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .header button {
+            padding: 10px 16px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+
+        /* Основний контент */
+        .main-content {
+            display: flex;
+            height: calc(100vh - 50px);
+            padding: 10px;
+        }
+
+        /* Ліва панель навігації */
+        .sidebar {
+            width: 240px;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 2px 0px 6px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            border-radius: 8px; /* Заокруглення кутів */
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eaeaea; /* Роздільник */
+        }
+
+        .sidebar ul li:last-child {
+            border-bottom: none; /* Без роздільника для останнього елемента */
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1rem; /* Зменшений шрифт */
+            display: flex;
+            align-items: center;
+            padding: 8px 15px; /* Зменшене заповнення */
+            transition: background-color 0.3s ease; /* Анімація */
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #f0f0f0; /* Підсвітка при наведенні */
+            color: #ff0000;
+            border-radius: 4px; /* Заокруглення при наведенні */
+        }
+
+        /* Список підписок */
+        .subscriptions {
+            margin-top: 20px;
+        }
+
+        .subscriptions h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem; /* Зменшений шрифт заголовка */
+            color: #333;
+            border-bottom: 2px solid #ff0000; /* Лінія під заголовком */
+            padding-bottom: 5px;
+        }
+
+        .subscriptions ul {
+            list-style: none;
+        }
+
+        .subscriptions ul li {
+            padding: 5px 0; /* Зменшене заповнення */
+        }
+
+        /* Вкладки */
+        .tabs {
+            display: flex;
+            justify-content: space-evenly;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .tabs a {
+            text-decoration: none;
+            font-size: 1rem; /* Зменшений шрифт */
+            color: #333;
+            padding: 10px;
+        }
+
+        .tabs a:hover {
+            color: #ff0000;
+        }
+
+        /* Головна частина з відео */
+        .video-section {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            overflow-y: auto; /* Додаємо прокручування */
+            height: calc(100% - 20px); /* Висота, щоб залишити простір для вкладок */
+        }
+
+        /* Картки відео */
+        .video-card {
+            background-color: #fff;
+            width: calc(25% - 10px); /* 4 відео в рядку */
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: scale(1.05);
+        }
+
+        .video-card img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .video-card h3 {
+            font-size: 0.9rem; /* Зменшений шрифт заголовка відео */
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .video-card p {
+            color: #666;
+            font-size: 0.8rem; /* Зменшений шрифт опису */
+        }
+
+        /* Основний контейнер */
+        .container {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Верхня панель -->
+    <div class="header">
+        <div class="logo">VasicTube</div>
+        <input type="text" placeholder="Пошук...">
+        <button>Завантажити</button>
+        <div>Профіль</div>
+    </div>
+
+    <!-- Вкладки -->
+    <div class="tabs">
+        <a href="#">Усі</a>
+        <a href="#">Ігри</a>
+        <a href="#">Музика</a>
+        <a href="#">Прямі трансляції</a>
+        <a href="#">Новини</a>
+        <a href="#">Фільми</a>
+    </div>
+
+    <!-- Основний контент -->
+    <div class="main-content">
+        <!-- Ліва панель -->
+        <div class="sidebar">
+            <ul>
+                <li><a href="#">Головна</a></li>
+                <li><a href="#">Популярне</a></li>
+                <li><a href="#">Підписки</a></li>
+                <li><a href="#">Бібліотека</a></li>
+                <li><a href="#">Історія</a></li>
+            </ul>
+
+            <div class="subscriptions">
+                <h3>Підписки</h3>
+                <ul>
+                    <li><a href="#">WAS Популярне</a></li>
+                    <li><a href="#">TheDRJZ</a></li>
+                    <li><a href="#">ROZETKA</a></li>
+                    <li><a href="#">Макар Олексій</a></li>
+                    <li><a href="#">Xau</a></li>
+                    <li><a href="#">Кіно українське</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Відео-секція -->
+        <div class="video-section">
+            <div class="video-card">
+                <img src="https://via.placeholder.com/320x180" alt="Video thumbnail">
+                <h3>Назва відео 1</h3>
+                <p>Короткий опис відео 1.</p>
+            </div>
+            <div class="video-card">
+                <img src="https://via.placeholder.com/320x180" alt="Video thumbnail">
+                <h3>Назва відео 2</h3>
+                <p>Короткий опис відео 2.</p>
+            </div>
+            <div class="video-card">
+                <img src="https://via.placeholder.com/320x180" alt="Video thumbnail">
+                <h3>Назва відео 3</h3>
+                <p>Короткий опис відео 3.</p>
+            </div>
+            <div class="video-card">
+                <img src="https://via.placeholder.com/320x180" alt="Video thumbnail">
+                <h3>Назва відео 4</h3>
+                <p>Короткий опис відео 4.</p>
+            </div>
+            <div class="video-card">
+                <img src="https://via.placeholder.com/320x180" alt="Video thumbnail">
+                <h3>Назва відео 5</h3>
+                <p>Короткий опис відео 5.</p>
+            </div>
+            <div class="video-card">
+                <img src="https://via.placeholder.com/320x180" alt="Video thumbnail">
+                <h3>Назва відео 6</h3>
+                <p>Короткий опис відео 6.</p>
+            </div>
+            <div class="video-card">
+                <img src="https://via.placeholder.com/320x180" alt="Video thumbnail">
+                <h3>Назва відео 7</h3>
+                <p>Короткий опис відео 7.</p>
+            </div>
+            <div class="video-card">
+                <img src="https://via.placeholder.com/320x180" alt="Video thumbnail">
+                <h3>Назва відео 8</h3>
+                <p>Короткий опис відео 8.</p>
+            </div>
+            <!-- Додаткові відео -->
+            <div class="video-card">
+                <img src="https://via.placeholder.com/320x180" alt="Video thumbnail">
+                <h3>Назва відео 9</h3>
+                <p>Короткий опис відео 9.</p>
+            </div>
+            <div class="video-card">
+                <img src="https://via.placeholder.com/320x180" alt="Video thumbnail">
+                <h3>Назва відео 10</h3>
+                <p>Короткий опис відео 10.</p>
+            </div>
+            <div class="video-card">
+                <img src="https://via.placeholder.com/320x180" alt="Video thumbnail">
+                <h3>Назва відео 11</h3>
+                <p>Короткий опис відео 11.</p>
+            </div>
+            <div class="video-card">
+                <img src="https://via.placeholder.com/320x180" alt="Video thumbnail">
+                <h3>Назва відео 12</h3>
+                <p>Короткий опис відео 12.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
